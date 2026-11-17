@@ -1,0 +1,26 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Signatur & Termin-Link</title><style>body{font-family:Arial,Helvetica,sans-serif;max-width:640px;margin:0 auto;padding:20px 16px;color:#17262b;background:#fff}
+h1{font-size:22px}h2{font-size:17px;margin-top:28px}.box{border:1px solid #d5dedc;border-radius:10px;padding:16px;margin:10px 0}
+button{background:#0d6e64;color:#fff;border:0;border-radius:8px;padding:10px 14px;font-weight:bold;font-size:15px;cursor:pointer;margin:4px 0}
+textarea{width:100%;box-sizing:border-box;height:110px;font:14px Arial}ol li{margin:4px 0}</style></head><body>
+<h1>Signatur &amp; Termin-Link</h1>
+<h2>1 · Termin-Link zum Weiterschicken</h2>
+<div class="box"><p><b>https://robertkoenigbauer-lang.github.io/termin/</b></p>
+<button onclick="navigator.clipboard.writeText('https://robertkoenigbauer-lang.github.io/termin/');this.textContent='✓ Link kopiert'">Link kopieren</button>
+<p>Fertiger Text für WhatsApp / SMS / Mail:</p><textarea id="t">Hallo, hier können Sie sich ganz einfach selbst einen neuen Termin aussuchen: https://robertkoenigbauer-lang.github.io/termin/
+
+Viele Grüße
+Robert Königbauer
+Servicepartner der ista</textarea>
+<button onclick="navigator.clipboard.writeText(document.getElementById('t').value);this.textContent='✓ Text kopiert'">Text kopieren</button>
+<button onclick="location.href='https://wa.me/?text='+encodeURIComponent(document.getElementById('t').value)">Per WhatsApp teilen</button></div>
+<h2>2 · Gmail-Signatur</h2>
+<div class="box" id="sig"><table cellpadding='0' cellspacing='0' border='0' style='border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;color:#17262b'><tr><td style='border-left:5px solid #0d6e64;padding:6px 0 6px 12px'><div style='font-size:16px;font-weight:bold;color:#17262b'>Robert Königbauer</div><div style='font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#0d6e64;font-weight:bold;padding-bottom:6px'>Servicepartner der ista</div><div style='font-size:13px;line-height:19px'>Mobil/WhatsApp: <a href='https://wa.me/491727449186' style='color:#17262b;text-decoration:none;font-weight:bold'>0172 744 9186</a><br>E-Mail: <a href='mailto:isp.koenigbauer@gmail.com' style='color:#17262b'>isp.koenigbauer@gmail.com</a><br>Termin online: <a href='https://robertkoenigbauer-lang.github.io/termin/' style='color:#0d6e64;font-weight:bold'>Neuen Termin wählen</a></div><table cellpadding='0' cellspacing='0' border='0' style='margin-top:8px'><tr><td style='padding:0 14px 0 0;text-align:center;vertical-align:top'><a href='https://wa.me/491727449186' style='text-decoration:none'><img src='https://robertkoenigbauer-lang.github.io/termin/sig/qr_whatsapp.png' width='76' height='76' alt='WhatsApp' style='display:block;border:0;width:76px;height:76px'></a><div style='font:bold 11px Arial,Helvetica,sans-serif;color:#0d6e64;padding-top:3px'>WhatsApp</div></td><td style='padding:0 14px 0 0;text-align:center;vertical-align:top'><a href='mailto:isp.koenigbauer@gmail.com' style='text-decoration:none'><img src='https://robertkoenigbauer-lang.github.io/termin/sig/qr_email.png' width='76' height='76' alt='E-Mail' style='display:block;border:0;width:76px;height:76px'></a><div style='font:bold 11px Arial,Helvetica,sans-serif;color:#0d6e64;padding-top:3px'>E-Mail</div></td><td style='padding:0 14px 0 0;text-align:center;vertical-align:top'><a href='https://robertkoenigbauer-lang.github.io/termin/' style='text-decoration:none'><img src='https://robertkoenigbauer-lang.github.io/termin/sig/qr_termin.png' width='76' height='76' alt='Termin wählen' style='display:block;border:0;width:76px;height:76px'></a><div style='font:bold 11px Arial,Helvetica,sans-serif;color:#0d6e64;padding-top:3px'>Termin wählen</div></td></tr></table></td></tr><tr><td style='padding-top:6px'><div style='height:6px;background:#0d6e64;border-radius:3px;font-size:0;line-height:0'>&nbsp;</div></td></tr></table></div>
+<button id="k">Signatur kopieren</button>
+<ol><li>Oben auf „Signatur kopieren“ tippen (am PC).</li><li>Gmail öffnen → Zahnrad oben rechts → „Alle Einstellungen aufrufen“.</li>
+<li>Reiter „Allgemein“ → runter bis „Signatur“ → „Neu erstellen“ → Name „ista“ → ins Feld einfügen (Strg+V).</li>
+<li>Darunter bei „Standardsignatur“ für „Neue E-Mails“ und „Antworten/Weiterleiten“ jeweils „ista“ wählen.</li><li>Ganz unten „Änderungen speichern“.</li></ol>
+<script>document.getElementById('k').onclick=async function(){const h=document.getElementById('sig').innerHTML;
+try{await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([h],{type:'text/html'}),'text/plain':new Blob([document.getElementById('sig').innerText],{type:'text/plain'})})]);this.textContent='✓ Signatur kopiert';}
+catch(e){const r=document.createRange();r.selectNodeContents(document.getElementById('sig'));const s=getSelection();s.removeAllRanges();s.addRange(r);document.execCommand('copy');this.textContent='✓ Signatur kopiert';}};</script>
+</body></html>
