@@ -160,6 +160,7 @@ const $ = id => document.getElementById(id);
 let wahl = null;
 // Robert 20.11.: QR auf Aushang/Karte trägt ?ab=JJJJ-MM-TT (2 Tage vor dem eigentlichen Termin) – vorher liegt der Auftrag noch nicht auf dem Tablet
 const AB = (()=>{try{const v=new URLSearchParams(location.search).get("ab")||"";return /^\d{4}-\d{2}-\d{2}$/.test(v)?v:"";}catch(e){return "";}})();
+const TT = (()=>{try{const v=new URLSearchParams(location.search).get("t")||"";return /^\d{4}-\d{2}-\d{2}$/.test(v)?v:"";}catch(e){return "";}})();   // Robert 20.11.: ursprünglicher Termintag nicht umbuchbar
 function abTxt(){const [y,m,d]=AB.split("-");return d+"."+m+"."+y;}
 async function h12(x){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(SALZ+x));return [...new Uint8Array(b)].map(v=>v.toString(16).padStart(2,"0")).join("").slice(0,12);}
 function strNorm(s){s=s.toLowerCase().replace(/ß/g,"ss").replace(/strasse/g,"str").replace(/str\./g,"str");return s.replace(/[^a-zäöü]/g,"");}
@@ -181,10 +182,10 @@ $("f1").addEventListener("submit",async e=>{
   $("e1").hidden=true;
   const box=$("tage"); box.innerHTML=""; wahl=null;
   // Robert 17.11.: zeitnah – nur die frühesten 6 Tage zeigen
-  const tage=TAGE.filter(d=>!AB||d.dk>=AB).map(d=>({...d,slots:d.slots.filter(s=>s.plz.includes(plz))})).filter(d=>d.slots.length).slice(0,6);
+  const tage=TAGE.filter(d=>(!AB||d.dk>=AB)&&d.dk!==TT).map(d=>({...d,slots:d.slots.filter(s=>s.plz.includes(plz))})).filter(d=>d.slots.length).slice(0,6);
   // Robert 17.11.: gleiche Liegenschaft/gleiches Haus zuerst – ich bin dann ohnehin bei Ihnen im Haus
   let hk=[]; try{hk=await hausKeys();}catch(err){}
-  const hs=HAUS.filter(x=>(!AB||x.dk>=AB)&&x.k.some(k=>hk.includes(k))); const gesehen=new Set();
+  const hs=HAUS.filter(x=>(!AB||x.dk>=AB)&&x.dk!==TT&&x.k.some(k=>hk.includes(k))); const gesehen=new Set();
   const hausT=hs.filter(x=>{const id=x.dk+x.zeit; if(gesehen.has(id)) return false; gesehen.add(id); return true;}).slice(0,3);
   if(AB){const n=document.createElement("div"); n.className="box"; n.innerHTML="Neue Termine gibt es <b>ab "+esc(abTxt())+"</b> – früher liegt mir Ihr Auftrag von ista leider noch nicht vor."; box.appendChild(n);}
   if(hausT.length){
